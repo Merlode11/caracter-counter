@@ -50,6 +50,30 @@ h1 {
     padding: 50px 0;
 }
 
+/* Make the website responsive */
+@media only screen and (max-width: 600px) {
+    .content {
+        flex-direction: column;
+    }
+    .form {
+        width: 100%;
+        height: auto;
+        margin: auto;
+    }
+    .form button {
+        margin: auto;
+    }
+    .form textarea {
+        width: 80%;
+        height: 200px;
+        min-width: 70%;
+    }
+    #resultat {
+        padding: 0 20px;
+    }
+
+}
+
 
 .valeur {
     padding: 3px 5px;

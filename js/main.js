@@ -195,7 +195,10 @@ function countPhrases(string) {
 }
 
 function countParagraphs(string) {
-    const paragraphs = string.split(/\n/).filter(elem => elem !== "");
+    const paragraphs = string.split(/\n\n/);
+    if (paragraphs[paragraphs.length - 1] === "") {
+        paragraphs.pop();
+    }
     return paragraphs.length;
 }
 
