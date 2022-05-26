@@ -46,6 +46,15 @@ window.onload = () => {
             speechTimeSelect.options[speechTimeSelect.selectedIndex].selected = true;
             speechTime.value = config.speech_time;
         }
+        if (getSelectValues(caractereLimitSelect).includes(config.caracter_limit)) {
+            caractereLimitSelect.value = config.caracter_limit;
+            caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
+            caractereLimit.value = config.caracter_limit;
+        } else {
+            caractereLimitSelect.value = "custom";
+            caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
+            caractereLimit.value = config.caracter_limit;
+        }
         if (config.save_config) {
             saveConfig.checked = true;
         }
