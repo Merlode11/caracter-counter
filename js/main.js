@@ -2,11 +2,13 @@ const text = document.getElementById("texte");
 const deleteButton = document.getElementById("delete");
 const shareButton = document.getElementById("share");
 const copyButton = document.getElementById("copy");
+const caractereLimitShow = document.getElementById("caracter_limit_show");
 
 let config = {
     savetext: false,
     read_time: 220,
     speech_time: 130,
+    caracter_limit: 0,
     save_config: false,
 }
 
@@ -15,6 +17,8 @@ const readTimeSelect = document.getElementById("read_time_select");
 const readTime = document.getElementById("read_time");
 const speechTimeSelect = document.getElementById("speech_time_select");
 const speechTime = document.getElementById("speech_time");
+const caractereLimitSelect = document.getElementById("caracter_limit_select");
+const caractereLimit = document.getElementById("caracter_limit");
 const saveConfig = document.getElementById("save_config");
 
 window.onload = () => {
@@ -56,6 +60,7 @@ window.onload = () => {
         // event the textarea edit
         text.dispatchEvent(new Event("input"));
     }
+    countCaraLimit(text.value);
     let footerYear = document.getElementById("year");
     footerYear.innerHTML = String(new Date().getFullYear());
 }
@@ -69,6 +74,8 @@ text.addEventListener("input", () => {
     document.getElementById("nb_para").innerHTML = countParagraphs(value).toString();
     document.getElementById("tps_lecture").innerHTML = countReadTime(value).toString();
     document.getElementById("tps_parole").innerHTML = countSpeechTime(value).toString();
+
+    countCaraLimit(value);
 
     if (config.savetext) {
         localStorage.setItem("text", value);
@@ -182,6 +189,39 @@ speechTime.addEventListener("input", () => {
     }
 });
 
+
+caractereLimitSelect.addEventListener("change", () => {
+    if (caractereLimitSelect.value === "custom") {
+        caractereLimit.disabled = caractereLimitSelect.value !== "custom";
+        return;
+    } else {
+        caractereLimit.disabled = caractereLimitSelect.value !== "custom";
+    }
+    config.caractere_limit = caractereLimitSelect.value;
+    caractereLimit.value = config.caractere_limit;
+    countCaraLimit(text.value);
+
+    if (config.save_config) {
+        localStorage.setItem("config", JSON.stringify(config));
+    }
+});
+
+caractereLimit.addEventListener("input", () => {
+    config.caractere_limit = caractereLimit.value;
+
+    if (getSelectValues(caractereLimitSelect).includes(caractereLimit.value)) {
+        caractereLimitSelect.value = config.caractere_limit;
+        caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
+        caractereLimit.disabled = true;
+    }
+    countCaraLimit(text.value);
+
+    if (config.save_config) {
+        localStorage.setItem("config", JSON.stringify(config));
+    }
+});
+
+
 saveConfig.addEventListener("click", () => {
     config.save_config = saveConfig.checked;
     if (config.save_config) {
@@ -262,6 +302,18 @@ function getSelectValues(select) {
     return result;
 }
 
+function countCaraLimit(string) {
+    const nbCaractere = string.length;
+    if (1*config.caractere_limit !== 0 && nbCaractere > 1*config.caractere_limit) {
+        text.classList.add("invalid");
+        caractereLimitShow.style.color = "#ff0000";
+    } else {
+        text.classList.remove("invalid");
+        caractereLimitShow.style.color = "#022b3a";
+    }
+    caractereLimitShow.innerHTML = nbCaractere + " / " + (1*config.caractere_limit !== 0 ? config.caractere_limit : "∞");
+}
+
 
 let modalBtns = [...document.querySelectorAll(".ask")];
 modalBtns.forEach(function (btn) {
@@ -269,12 +321,24 @@ modalBtns.forEach(function (btn) {
         let modal = btn.getAttribute("data-modal");
         document.getElementById(modal).style.display = "block";
     };
+    btn.onkeydown = function (e) {
+        if (e.keyCode === 13) {
+            let modal = btn.getAttribute("data-modal");
+            document.getElementById(modal).style.display = "block";
+        }
+    };
 });
 let closeBtns = [...document.querySelectorAll(".close")];
 closeBtns.forEach(function (btn) {
     btn.onclick = function () {
         let modal = btn.closest(".modal");
         modal.style.display = "none";
+    };
+    btn.onkeydown = function (e) {
+        if (e.keyCode === 13) {
+            let modal = btn.closest(".modal");
+            modal.style.display = "none";
+        }
     };
 });
 window.onclick = function (event) {
