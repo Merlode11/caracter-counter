@@ -290,6 +290,7 @@ function getSelectValues(select) {
 }
 
 function countCaraLimit(string) {
+    if (!Object.keys(config).includes("caractere_limit")) config.caractere_limit = 0;
     const nbCaractere = string.length;
     if (1*config.caractere_limit !== 0 && nbCaractere > 1*config.caractere_limit) {
         text.classList.add("invalid");
