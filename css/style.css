@@ -89,6 +89,10 @@ details summary {
     color: #022B3A;
 }
 
+details[open] summary {
+    padding-bottom: 10px;
+}
+
 details form {
     border-top: #022B3A 1px solid;
     padding: 10px;
