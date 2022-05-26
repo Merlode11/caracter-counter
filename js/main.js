@@ -36,7 +36,6 @@ window.onload = () => {
             readTimeSelect.value = "custom";
             readTimeSelect.options[readTimeSelect.selectedIndex].selected = true;
             readTime.value = config.read_time;
-            readTime.disabled = false;
         }
         if (getSelectValues(speechTimeSelect).includes(config.speech_time)) {
             speechTimeSelect.value = config.speech_time;
@@ -46,7 +45,6 @@ window.onload = () => {
             speechTimeSelect.value = "custom";
             speechTimeSelect.options[speechTimeSelect.selectedIndex].selected = true;
             speechTime.value = config.speech_time;
-            speechTime.disabled = false;
         }
         if (config.save_config) {
             saveConfig.checked = true;
@@ -126,12 +124,6 @@ saveText.addEventListener("click", () => {
 
 
 readTimeSelect.addEventListener("change", () => {
-    if (readTimeSelect.value === "custom") {
-        readTime.disabled = readTimeSelect.value !== "custom";
-        return;
-    } else {
-        readTime.disabled = readTimeSelect.value !== "custom";
-    }
     config.read_time = readTimeSelect.value;
     readTime.value = config.read_time;
     document.getElementById("tps_lecture").innerHTML = countReadTime(text.value).toString();
@@ -148,7 +140,9 @@ readTime.addEventListener("input", () => {
     if (getSelectValues(readTimeSelect).includes(readTime.value)) {
         readTimeSelect.value = config.read_time;
         readTimeSelect.options[readTimeSelect.selectedIndex].selected = true;
-        readTime.disabled = true;
+    } else {
+        readTimeSelect.value = "custom";
+        readTimeSelect.options[readTimeSelect.selectedIndex].selected = true;
     }
     document.getElementById("tps_lecture").innerHTML = countReadTime(text.value).toString();
 
@@ -159,12 +153,6 @@ readTime.addEventListener("input", () => {
 
 
 speechTimeSelect.addEventListener("change", () => {
-    if (speechTimeSelect.value === "custom") {
-        speechTime.disabled = speechTimeSelect.value !== "custom";
-        return;
-    } else {
-        speechTime.disabled = speechTimeSelect.value !== "custom";
-    }
     config.speech_time = speechTimeSelect.value;
     speechTime.value = config.speech_time;
     document.getElementById("tps_parole").innerHTML = countSpeechTime(text.value).toString();
@@ -180,7 +168,9 @@ speechTime.addEventListener("input", () => {
     if (getSelectValues(speechTimeSelect).includes(speechTime.value)) {
         speechTimeSelect.value = config.speech_time;
         speechTimeSelect.options[speechTimeSelect.selectedIndex].selected = true;
-        speechTime.disabled = true;
+    } else {
+        speechTimeSelect.value = "custom";
+        speechTimeSelect.options[speechTimeSelect.selectedIndex].selected = true;
     }
     document.getElementById("tps_parole").innerHTML = countSpeechTime(text.value).toString();
 
@@ -191,12 +181,6 @@ speechTime.addEventListener("input", () => {
 
 
 caractereLimitSelect.addEventListener("change", () => {
-    if (caractereLimitSelect.value === "custom") {
-        caractereLimit.disabled = caractereLimitSelect.value !== "custom";
-        return;
-    } else {
-        caractereLimit.disabled = caractereLimitSelect.value !== "custom";
-    }
     config.caractere_limit = caractereLimitSelect.value;
     caractereLimit.value = config.caractere_limit;
     countCaraLimit(text.value);
@@ -212,8 +196,11 @@ caractereLimit.addEventListener("input", () => {
     if (getSelectValues(caractereLimitSelect).includes(caractereLimit.value)) {
         caractereLimitSelect.value = config.caractere_limit;
         caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
-        caractereLimit.disabled = true;
+    } else {
+        caractereLimitSelect.value = "custom";
+        caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
     }
+
     countCaraLimit(text.value);
 
     if (config.save_config) {
