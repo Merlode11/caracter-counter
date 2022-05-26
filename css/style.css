@@ -26,7 +26,7 @@ h1 {
     border-radius: 5px;
 }
 
-.form button {
+.form .button {
     padding: 5px;
     border-radius: 5px;
     margin: auto 0 auto auto;
@@ -50,30 +50,6 @@ h1 {
     padding: 50px 0;
 }
 
-/* Make the website responsive */
-@media only screen and (max-width: 600px) {
-    .content {
-        flex-direction: column;
-    }
-    .form {
-        width: 100%;
-        height: auto;
-        margin: auto;
-    }
-    .form button {
-        margin: auto;
-    }
-    .form textarea {
-        width: 80%;
-        height: 200px;
-        min-width: 70%;
-    }
-    #resultat {
-        padding: 0 20px;
-    }
-
-}
-
 
 .valeur {
     padding: 3px 5px;
@@ -90,7 +66,6 @@ h1 {
     cursor: help;
 }
 
-/* center .config */
 details {
     display: flex;
     justify-content: center;
@@ -99,7 +74,7 @@ details {
     border: 1px solid #022B3A;
     border-radius: 5px;
     padding: 10px;
-    width: 50%;
+    width: 75%;
 }
 
 details summary {
@@ -201,4 +176,75 @@ footer {
 footer a:link, footer a:visited {
     color: #022B3A;
     text-decoration: underline;
+}
+
+/* Make the website responsive */
+@media only screen and (max-width: 600px) {
+    .content {
+        flex-direction: column;
+    }
+    .form {
+        width: 100%;
+        height: auto;
+        margin: auto;
+    }
+    .form .button {
+        margin: auto;
+        float: left;
+    }
+    .form textarea {
+        width: 80%;
+        height: 200px;
+        min-width: 70%;
+    }
+    #resultat {
+        padding: 0 20px;
+    }
+
+    details {
+        width: 90%;
+        height: auto;
+        margin: auto;
+    }
+
+    details summary {
+        width: 90%;
+        height: auto;
+        margin: auto;
+        font-size: 18px;
+        padding: 5px;
+        color: #022B3A;
+    }
+
+    details form {
+        border-top: #022B3A 1px solid;
+        padding: 10px;
+    }
+
+    .config select {
+        width: 75%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #E1E5F2;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .config .number {
+        width: 75%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #E1E5F2;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .config label {
+        font-size: 14px;
+        color: #022B3A;
+        font-weight: bold;
+        text-align: center;
+        justify-content: center;
+    }
+
 }
