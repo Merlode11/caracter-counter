@@ -59,8 +59,7 @@ h1 {
   border: 1px solid #e1e5f2;
   max-width: 95%;
   max-height: 95%;
-  min-width: 50%;
-  min-height: 25%;
+  min-width: 90%;
 }
 
 .form .invalid {
