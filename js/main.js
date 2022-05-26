@@ -82,17 +82,24 @@ deleteButton.addEventListener("click", () => {
     }
 });
 shareButton.addEventListener("click", () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("text", text.value);
-    navigator.clipboard.writeText(url.href).then(() => {
-        alert("L'url a été copiée dans le presse-papier");
-    });
+    if (text.value) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("text", text.value);
+        navigator.clipboard.writeText(url.href).then(() => {
+            alert("L'url a été copiée dans le presse-papier");
+        });
+    } else {
+        alert("Veuillez d'abord saisir du texte");
+    }
 });
 copyButton.addEventListener("click", () => {
-    text.select();
-    navigator.clipboard.writeText(text.value).then(() => {
-        alert("Le texte a été copié dans le presse-papier");
-    });
+    if (text.value) {
+        navigator.clipboard.writeText(text.value).then(() => {
+            alert("Le texte a été copié dans le presse-papier");
+        });
+    } else {
+        alert("Veuillez d'abord saisir du texte");
+    }
 });
 
 
