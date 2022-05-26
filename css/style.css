@@ -33,6 +33,20 @@ h1 {
     float: right;
 }
 
+.form .button button {
+    background: #ffffff;
+    color: #022B3A;
+    border: 1px solid #022B3A;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form .button button:hover {
+    background: #022B3A;
+    color: #ffffff;
+}
+
 .form textarea {
     width: 95%;
     height: 200px;

@@ -1,6 +1,7 @@
 const text = document.getElementById("texte");
 const deleteButton = document.getElementById("delete");
 const shareButton = document.getElementById("share");
+const copyButton = document.getElementById("copy");
 
 let config = {
     savetext: false,
@@ -85,6 +86,12 @@ shareButton.addEventListener("click", () => {
     url.searchParams.set("text", text.value);
     navigator.clipboard.writeText(url.href).then(() => {
         alert("L'url a été copiée dans le presse-papier");
+    });
+});
+copyButton.addEventListener("click", () => {
+    text.select();
+    navigator.clipboard.writeText(text.value).then(() => {
+        alert("Le texte a été copié dans le presse-papier");
     });
 });
 
