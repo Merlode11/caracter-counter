@@ -8,7 +8,7 @@ let config = {
     savetext: false,
     read_time: 220,
     speech_time: 130,
-    caracter_limit: 0,
+    caractere_limit: 0,
     save_config: false,
 }
 
@@ -46,14 +46,16 @@ window.onload = () => {
             speechTimeSelect.options[speechTimeSelect.selectedIndex].selected = true;
             speechTime.value = config.speech_time;
         }
-        if (getSelectValues(caractereLimitSelect).includes(config.caracter_limit)) {
-            caractereLimitSelect.value = config.caracter_limit;
+        if (getSelectValues(caractereLimitSelect).includes(config.caractere_limit)) {
+            console.log(config.caractere_limit);
+            caractereLimitSelect.value = config.caractere_limit;
             caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
-            caractereLimit.value = config.caracter_limit;
+            caractereLimit.value = config.caractere_limit;
         } else {
+            console.log("custom");
             caractereLimitSelect.value = "custom";
             caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
-            caractereLimit.value = config.caracter_limit;
+            caractereLimit.value = config.caractere_limit;
         }
         if (config.save_config) {
             saveConfig.checked = true;
@@ -108,9 +110,17 @@ shareButton.addEventListener("click", () => {
 });
 copyButton.addEventListener("click", () => {
     if (text.value) {
-        navigator.clipboard.writeText(text.value).then(() => {
-            alert("Le texte a été copié dans le presse-papier");
-        });
+        if (text.value.length > config.caractere_limit) {
+            if (confirm("Le texte dépasse la limite autorisée. Voulez-vous tout de même continuer ?")) {
+                navigator.clipboard.writeText(text.value).then(() => {
+                    alert("Le texte a été copié dans le presse-papier");
+                });
+            }
+        } else {
+            navigator.clipboard.writeText(text.value).then(() => {
+                alert("Le texte a été copié dans le presse-papier");
+            });
+        }
     } else {
         alert("Veuillez d'abord saisir du texte");
     }
