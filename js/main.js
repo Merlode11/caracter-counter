@@ -47,12 +47,10 @@ window.onload = () => {
             speechTime.value = config.speech_time;
         }
         if (getSelectValues(caractereLimitSelect).includes(config.caractere_limit)) {
-            console.log(config.caractere_limit);
             caractereLimitSelect.value = config.caractere_limit;
             caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
             caractereLimit.value = config.caractere_limit;
         } else {
-            console.log("custom");
             caractereLimitSelect.value = "custom";
             caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true;
             caractereLimit.value = config.caractere_limit;
@@ -143,8 +141,23 @@ saveText.addEventListener("click", () => {
 
 
 readTimeSelect.addEventListener("change", () => {
-    config.read_time = readTimeSelect.value;
-    readTime.value = config.read_time;
+
+    if (readTimeSelect.value === "custom") {
+        readTime.value = ""
+        readTime.focus()
+        readTime.addEventListener("focusout", () => {
+            if (readTime.value === "") {
+                readTime.value = config.read_time;
+                readTimeSelect.value = config.read_time;
+                readTimeSelect.options[readTimeSelect.selectedIndex].selected = true;
+            }
+            readTime.removeEventListener("focusout", () => {})
+        })
+    } else {
+        config.read_time = readTimeSelect.value;
+        readTime.value = config.read_time;
+    }
+
     document.getElementById("tps_lecture").innerHTML = countReadTime(text.value).toString();
 
     if (config.save_config) {
@@ -172,8 +185,22 @@ readTime.addEventListener("input", () => {
 
 
 speechTimeSelect.addEventListener("change", () => {
-    config.speech_time = speechTimeSelect.value;
-    speechTime.value = config.speech_time;
+    if (speechTimeSelect.value === "custom") {
+        speechTime.value = ""
+        speechTime.focus()
+        speechTime.addEventListener("focusout", () => {
+            if (speechTime.value === "") {
+                speechTime.value = config.speech_time;
+                speechTimeSelect.value = config.speech_time;
+                speechTimeSelect.options[speechTimeSelect.selectedIndex].selected = true;
+            }
+            speechTime.removeEventListener("focusout", () => {})
+        })
+    } else {
+        config.speech_time = speechTimeSelect.value;
+        speechTime.value = config.speech_time;
+    }
+
     document.getElementById("tps_parole").innerHTML = countSpeechTime(text.value).toString();
 
     if (config.save_config) {
@@ -200,11 +227,25 @@ speechTime.addEventListener("input", () => {
 
 
 caractereLimitSelect.addEventListener("change", () => {
+    // this.old = this.recent
+    // this.recent = caractereLimitSelect.value
+
     if (caractereLimitSelect.value === "custom") {
+        caractereLimit.value = "";
         caractereLimit.focus()
+        caractereLimit.addEventListener("focusout", () => {
+            if (caractereLimit.value === "") {
+                caractereLimit.value = config.caractere_limit
+                caractereLimitSelect.value = config.caractere_limit
+                caractereLimitSelect.options[caractereLimitSelect.selectedIndex].selected = true
+            }
+            caractereLimit.removeEventListener("focusout", () => {})
+        })
+    } else {
+        config.caractere_limit = caractereLimitSelect.value;
+        caractereLimit.value = config.caractere_limit;
     }
-    config.caractere_limit = caractereLimitSelect.value;
-    caractereLimit.value = config.caractere_limit;
+
     countCaraLimit(text.value);
 
     if (config.save_config) {

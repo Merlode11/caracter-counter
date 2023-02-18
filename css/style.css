@@ -230,9 +230,9 @@ footer a:visited {
     float: left;
   }
   .form textarea {
-    width: 80%;
+    width: 90%;
     height: 200px;
-    min-width: 70%;
+    min-width: 90%;
   }
 
   .form #caracter_limit_show {
