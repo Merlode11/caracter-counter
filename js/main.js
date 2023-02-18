@@ -355,14 +355,22 @@ function getSelectValues(select) {
 function countCaraLimit(string) {
     if (!Object.keys(config).includes("caractere_limit")) config.caractere_limit = 0;
     const nbCaractere = string.length;
-    if (1*config.caractere_limit !== 0 && nbCaractere > 1*config.caractere_limit) {
+    if (config.caractere_limit !== 0 && nbCaractere > config.caractere_limit) {
         text.classList.add("invalid");
-        caractereLimitShow.classList.add("invalid");
+        caractereLimitShow.style.color = "#ff0000";
     } else {
         text.classList.remove("invalid");
-        caractereLimitShow.classList.remove("invalid");
+        caractereLimitShow.style.color = "";
     }
-    caractereLimitShow.innerHTML = nbCaractere + " / " + (1*config.caractere_limit !== 0 ? config.caractere_limit : "∞");
+    caractereLimitShow.innerHTML = nbCaractere + " / " + (config.caractere_limit !== 0 ? config.caractere_limit : "∞");
+    if (nbCaractere === 69) {
+        caractereLimitShow.onclick = () => {
+            const audio = new Audio("https://www.myinstants.com/media/sounds/69.mp3");
+            audio.play();
+        };
+    } else {
+        caractereLimitShow.onclick = () => {};
+    }
 }
 
 
