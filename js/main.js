@@ -200,6 +200,9 @@ speechTime.addEventListener("input", () => {
 
 
 caractereLimitSelect.addEventListener("change", () => {
+    if (caractereLimitSelect.value === "custom") {
+        caractereLimit.focus()
+    }
     config.caractere_limit = caractereLimitSelect.value;
     caractereLimit.value = config.caractere_limit;
     countCaraLimit(text.value);
@@ -313,10 +316,10 @@ function countCaraLimit(string) {
     const nbCaractere = string.length;
     if (1*config.caractere_limit !== 0 && nbCaractere > 1*config.caractere_limit) {
         text.classList.add("invalid");
-        caractereLimitShow.style.color = "#ff0000";
+        caractereLimitShow.classList.add("invalid");
     } else {
         text.classList.remove("invalid");
-        caractereLimitShow.style.color = "#022b3a";
+        caractereLimitShow.classList.remove("invalid");
     }
     caractereLimitShow.innerHTML = nbCaractere + " / " + (1*config.caractere_limit !== 0 ? config.caractere_limit : "∞");
 }
@@ -348,6 +351,7 @@ closeBtns.forEach(function (btn) {
         }
     };
 });
+
 window.onclick = function (event) {
     if (event.target.className === "modal") {
         event.target.style.display = "none";
